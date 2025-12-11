@@ -1,63 +1,58 @@
-import Image from "next/image";
+import Sidebar from "./components/Sidebar";
+import Header from "./components/Header";
+import TasksWidget from "./components/TasksWidget";
+import MeditationWidget from "./components/MeditationWidget";
+import FinanceWidget from "./components/FinanceWidget";
+import NotesWidget from "./components/NotesWidget";
 
-export default function Home() {
+export default function Dashboard() {
+  // Get current date info
+  const now = new Date();
+  const options: Intl.DateTimeFormatOptions = { weekday: 'long', month: 'short', day: 'numeric' };
+  const formattedDate = now.toLocaleDateString('en-US', options);
+  
+  // Determine greeting based on time
+  const hour = now.getHours();
+  let greeting = "Good Morning";
+  if (hour >= 12 && hour < 17) greeting = "Good Afternoon";
+  else if (hour >= 17) greeting = "Good Evening";
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+    <div className="flex h-screen w-full bg-background-light dark:bg-background-dark text-slate-900 dark:text-white">
+      {/* Global Sidebar Navigation */}
+      <Sidebar />
+
+      {/* Main Content Area */}
+      <main className="flex-1 flex flex-col h-full overflow-y-auto bg-background-dark relative">
+        {/* Background Decorative Gradients */}
+        <div className="absolute top-0 left-0 w-full h-96 bg-gradient-to-b from-[#18282d] to-transparent pointer-events-none z-0"></div>
+
+        <div className="max-w-[1600px] w-full mx-auto p-6 lg:p-10 z-10 flex flex-col gap-8">
+          {/* Greeting Header */}
+          <Header
+            date={formattedDate}
+            greeting={greeting}
+            name="Alex"
+            quote="Focus on being productive instead of busy."
+            taskCount={5}
+          />
+
+          {/* Bento Grid Layout */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 h-full">
+            {/* Left Column: Todos (Focus) */}
+            <div className="lg:col-span-4 flex flex-col gap-6">
+              <TasksWidget />
+            </div>
+
+            {/* Center Column: Stats (Meditation & Finance) */}
+            <div className="lg:col-span-5 flex flex-col gap-6">
+              <MeditationWidget />
+              <FinanceWidget />
+            </div>
+
+            {/* Right Column: Notes (Reference) */}
+            <NotesWidget />
+          </div>
         </div>
       </main>
     </div>
