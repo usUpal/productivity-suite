@@ -9,6 +9,7 @@ const navItems = [
   { href: '/finance', icon: 'payments', label: 'Finance' },
   { href: '/todos', icon: 'check_circle', label: 'Todos' },
   { href: '/notes', icon: 'edit_note', label: 'Notes' },
+  { href: '/journal', icon: 'book_2', label: 'Journal' },
 ]
 
 export default function Sidebar() {
