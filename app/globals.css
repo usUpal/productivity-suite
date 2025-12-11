@@ -4,8 +4,10 @@
   --color-primary: #11a4d4;
   --color-background-light: #f6f8f8;
   --color-background-dark: #101d22;
+  --color-surface-dark: #111e22;
   --color-card-dark: #18282d;
   --color-card-hover: #1f3239;
+  --color-text-secondary: #92bbc9;
   --font-display: "Manrope", sans-serif;
 }
 
